@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Image;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Storage;
 use Auth;
 
@@ -15,6 +16,9 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $products = Product::with('images')->with('comments')->get();
+        // $products = Image::with('porduct')->get();
+        return $products;
         return view('products.add-product');
     }
 
@@ -31,11 +35,17 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'product_name'=>'required|string|min:3|max:23'
-        ]);
-
-        $imgurl = Storage::disk('public')->put($request->product_images, 'ProductsImages');
+        // $request->validate([
+        //     'product_name'=>'required|string|min:3|max:23'
+        // ]);
+        
+        $imgurl = [];
+        $images = [];
+        foreach ($request->file('product_images') as $image) {
+            $imgurl[] = $image->store('product_image', 'public');
+            $images[] = $image;
+        }
+        // return $images;
         $produt = Product::create([
             'product_name'=>$request->product_name,
             'mrp_price'=>$request->product_name,
@@ -47,10 +57,18 @@ class ProductController extends Controller
             'category'=>$request->category
         ]);
         // return $produt;
-        Image::create([
-            'image_path'=>$imgurl,
-            'product_id'=>$produt->id
-        ]);
+        // Image::create([
+        //     'image_path'=>json_encode($imgurl),
+        //     'product_id'=>$produt->id
+        // ]);
+        
+        for($i=0;$i<count($imgurl); $i++){
+            Image::create([
+                'image_path'=>$imgurl[$i],
+                'product_id'=>$produt->id
+            ]);
+        }
+        
         return redirect()->back();
     }
 
@@ -84,5 +102,22 @@ class ProductController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function showCommentForm(){
+        $products = Product::all();
+        // return view('products.comments', compact('products'));
+        return view('products.comments', ['products'=>$products]);
+    }
+
+    public function addComment(Request $request){
+        // $request->user_id = ;
+        Comment::create([
+            'message'=>$request->message,
+            'rating'=>$request->rating,
+            'product_id'=>$request->product_id,
+            'user_id'=>Auth::user()->id
+        ]);
+        return redirect()->back();
     }
 }

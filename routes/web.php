@@ -12,6 +12,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
 Route::resource('/add-product', ProductController::class)->names([
     'index' => 'product.index',
     'create' => 'product.create',
@@ -19,9 +20,8 @@ Route::resource('/add-product', ProductController::class)->names([
     'edit' => 'product.edit',
     'update' => 'product.update'
 ]);
-// Route::get('/add-product', function(){
-//     return view('products.add-product');
-// });
+Route::get('/add-comment', [ProductController::class, 'showCommentForm']);
+Route::post('/store-comment', [ProductController::class, 'addComment'])->name('comment.store');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
