@@ -15,14 +15,6 @@
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
-        <!-- Email Address -->
-        <div class="mt-4">
-            <label for="role">Role</label>
-            <select name="role" id="role" class="block mt-1 w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
-                <option value="user">User</option>
-                <option value="vendor">Vendor</option>
-            </select>
-        </div>
 
         <!-- Password -->
         <div class="mt-4">

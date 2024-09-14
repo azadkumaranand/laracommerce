@@ -18,7 +18,7 @@ class ProductController extends Controller
     {
         $products = Product::with('images')->with('comments')->get();
         // $products = Image::with('porduct')->get();
-        return $products;
+        // return $products;
         return view('products.add-product');
     }
 

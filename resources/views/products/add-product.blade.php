@@ -42,8 +42,8 @@
                 </div>
 
                 <div class="images">         
-                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="multiple_files">Upload multiple files</label>
-                    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="multiple_files" type="file" name="product_images[]" multiple>
+                    <label class="block mb-2 text-sm font-medium text-gray-900" for="multiple_files">Upload multiple files</label>
+                    <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none" id="multiple_files" type="file" name="product_images[]" multiple>
                 </div>
                 <!-- Name -->
                 <div class="my-3">
@@ -52,7 +52,7 @@
                     <x-input-error :messages="$errors->get('tags')" class="mt-2" />
                 </div>
                 <button>Submit</button>
-                {{-- <button type="submit" class="mt-2 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Submit</button> --}}
+                {{-- <button type="submit" class="mt-2 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Submit</button> --}}
             </form>
         </div>
     </div>
